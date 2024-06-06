@@ -1,0 +1,33 @@
+{% extends 'mailing/base.html' %}
+
+{% block content %}
+
+{% for object in object_list %}
+
+<div class="col">
+    <div class="card mb-4 rounded-3 shadow-sm">
+        <div class="card-body">
+            <ul class="list-unstyled mt-3 mb-4">
+                <li>email: {{ object.email }}</li>
+                <li>Ф.И.О.: {{ object.name }}</li>
+                <li>Комментарий: {{ object.comment }}</li>
+            </ul>
+            <a href="{% url 'client:view' object.pk %}" type="button"
+               class="w-100 btn btn-lg btn-outline-primary">Просмотр</a>
+
+
+        </div>
+        <div class="card-footer">
+            <a href="{% url 'client:edit'  object.pk %}" type="button"
+               class="w-100 btn btn-lg btn-outline-primary">Редактировать</a>
+        </div>
+        <div class="card-footer">
+            <a href="{% url 'client:delete'  object.pk %}" type="button"
+               class="w-100 btn btn-lg btn-outline-primary">Удалить</a>
+        </div>
+    </div>
+</div>
+
+{% endfor%}
+
+{% endblock %}

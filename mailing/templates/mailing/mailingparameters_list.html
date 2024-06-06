@@ -1,0 +1,40 @@
+{% extends 'mailing/base.html' %}
+
+{% block content %}
+<div>
+    <a href="{% url 'mailing:create' %}" class="w-100 btn btn-lg btn-outline-primary">Создать</a>
+</div>
+{% for object in object_list %}
+
+<div class="col">
+    <div class="card mb-4 rounded-3 shadow-sm">
+        <div class="card-header py-3">
+            <h4 class="my-0 fw-normal">{{ object.name }}</h4>
+        </div>
+        <div class="card-body">
+
+            <ul class="list-unstyled mt-3 mb-4">
+                <li>Начало: {{ object.start_time }}</li>
+                <li>Окончание: {{ object.end_time }}</li>
+                <li>Интервал: {{ object.interval }}</li>
+                {% if   object.is_active %}
+                <li>Рассылка активна</li>
+                {% else %}
+                <li>Рассылка не активна</li>
+                {% endif %}
+                <li>Следующая расылка: {{ object.next_date }}</li>
+            </ul>
+            <a href="{% url 'mailing:mp_detail' object.pk %}" type="button" class="w-100 btn btn-lg btn-outline-primary">Просмотр</a>
+            <a href="{% url 'mailing:edit'  object.pk %}" type="button" class="w-100 btn btn-lg btn-outline-primary">Редактировать</a>
+
+
+
+        </div>
+    </div>
+</div>
+
+{% endfor%}
+
+{% endblock %}
+
+
