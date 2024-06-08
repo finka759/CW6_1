@@ -3,36 +3,35 @@
 {% block content %}
 
 
-
-<div class="col">
+<div class="text-center">
     <div class="card mb-4 rounded-3 shadow-sm">
-        <div class="card-header py-3 text-center">
-            <h4 class="my-0 fw-normal">{{ object.name }}</h4>
+        <div class="card-header py-3">
+            <h4 class="my-0 fw-normal">Хотие удаленить эту рассылку ?</h4>
         </div>
         <div class="card-body">
             <ul class="list-unstyled mt-3 mb-4">
+                <li>Название: {{ object.name }}</li>
                 <li>Начало: {{ object.start_time }}</li>
                 <li>Окончание: {{ object.end_time }}</li>
                 <li>Интервал: {{ object.interval }}</li>
-                {% if   object.is_active %}
+                {% if object.is_active %}
                 <li>Рассылка активна</li>
                 {% else %}
                 <li>Рассылка не активна</li>
                 {% endif %}
                 <li>Следующая расылка: {{ object.next_date }}</li>
-                <li>Текст письма: {{ object.mail.theme }}</li>
-                <li>Содержимое письма: {{ object.mail.content }}</li>
-                <li>Клиенты: {% for client in object.client.all %} {{client.email}} {% endfor %}</li>
             </ul>
-
-
-            
-
-            <a href="{% url 'mailing:edit' object.pk %}" type="button" class="w-100 btn btn-lg btn-outline-primary">Редактировать</a>
         </div>
+        <div class="card-footer">
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="w-100 btn btn-lg btn-outline-danger mb-2">Ок</button>
+                <a href="{% url 'mailing:mp_list' %}" class="w-100 btn btn-lg btn-outline-success ">No</a>
+            </form>
+        </div>
+
     </div>
 </div>
-
 
 
 {% endblock %}
