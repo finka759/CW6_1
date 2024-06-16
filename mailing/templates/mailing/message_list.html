@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="mb-3">
-    <a href="{% url 'mailing:create' %}" class="w-100 btn btn-lg btn-outline-primary">Создать рассылку</a>
+    <a href="{% url 'mailing:message_create' %}" class="w-100 btn btn-lg btn-outline-primary">Создать сообщение</a>
 </div>
 
 <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
@@ -22,15 +22,13 @@
                     <li>Текст сообщения: {{ object.content }}</li>
 
                 </ul>
-                <a href="{% url 'mailing:mp_detail' object.pk %}" type="button"
-                   class="w-100 btn btn-lg btn-outline-primary mb-3">Просмотр</a>
-                <a href="{% url 'mailing:edit'  object.pk %}" type="button"
+                <a href="{% url 'mailing:message_edit'  object.pk %}" type="button"
                    class="w-100 btn btn-lg btn-outline-primary">Редактировать</a>
 
 
             </div>
             <div class="card-footer">
-                <a href="{% url 'mailing:delete'  object.pk %}" type="button"
+                <a href="{% url 'mailing:message_delete'  object.pk %}" type="button"
                    class="w-100 btn btn-lg btn-outline-primary">Удалить</a>
             </div>
 

@@ -29,7 +29,7 @@
                     {% endif %}
                     <li>Следующая расылка: {{ object.next_date }}</li>
                 </ul>
-                <a href="{% url 'mailing:mp_detail' object.pk %}" type="button"
+                <a href="{% url 'mailing:detail' object.pk %}" type="button"
                    class="w-100 btn btn-lg btn-outline-primary mb-3">Просмотр</a>
                 <a href="{% url 'mailing:edit'  object.pk %}" type="button"
                    class="w-100 btn btn-lg btn-outline-primary">Редактировать</a>

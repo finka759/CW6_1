@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="mb-3">
-    <a href="{% url 'message:create' %}" class="w-100 btn btn-lg btn-outline-primary">Создать сообщение</a>
+    <a href="{% url 'mailing:message_create' %}" class="w-100 btn btn-lg btn-outline-primary">Создать сообщение</a>
 </div>
 
 <div class="col">
@@ -24,6 +24,9 @@
             </form>
 
 
+        </div>
+        <div class="card-footer">
+            <a href="{% url 'mailing:list' %}" class="w-100 btn btn-lg btn-outline-primary">Отмена</a>
         </div>
     </div>
 </div>

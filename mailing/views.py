@@ -18,13 +18,13 @@ class MailingParametersDetailView(DetailView):
 
 class MailingParametersCreateView(CreateView):
     model = MailingParameters
-    fields = ['name', 'mail', 'start_time', 'end_time', 'next_date', 'is_active', 'interval']
+    fields = ['name', 'mail', 'start_time', 'end_time', 'next_date', 'is_active', 'interval', 'client']
     success_url = reverse_lazy('mailing:list')
 
 
 class MailingParametersUpdateView(UpdateView):
     model = MailingParameters
-    fields = ['name', 'mail', 'start_time', 'end_time', 'next_date', 'is_active', 'interval']
+    fields = ['name', 'mail', 'start_time', 'end_time', 'next_date', 'is_active', 'interval', 'client']
     success_url = reverse_lazy('mailing:list')
 
 
@@ -40,10 +40,15 @@ class MessageListView(ListView):
 class MessageCreateView(CreateView):
     model = Message
     fields = ['theme', 'content', ]
-    success_url = reverse_lazy('message:list')
+    success_url = reverse_lazy('mailing:create')
 
 
 class MessageUpdateView(UpdateView):
     model = Message
     fields = ['theme', 'content', ]
-    success_url = reverse_lazy('message:list')
+    success_url = reverse_lazy('mailing:message_list')
+
+
+class MessageDeleteView(DeleteView):
+    model = Message
+    success_url = reverse_lazy('mailing:message_list')
