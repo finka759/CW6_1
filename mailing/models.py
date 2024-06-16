@@ -25,6 +25,12 @@ class MailingParameters(models.Model):
         ('per_week', 'раз в неделю'),
         ('per_month', 'раз в месяц')
     )
+    status_variants = (
+        ('created', 'создана'),
+        ('executing', 'запущена'),
+        ('finished', 'закончена успешно'),
+        ('error', 'законечена с ошибками')
+    )
     name = models.CharField(verbose_name="название рассылки", max_length=50, default='mailing_no_name')
     client = models.ManyToManyField(Client, verbose_name='получатель')
     mail = models.ForeignKey(Message, on_delete=models.CASCADE)
@@ -33,6 +39,7 @@ class MailingParameters(models.Model):
     next_date = models.DateTimeField(default=timezone.now, verbose_name='дата следующей рассылки')
     is_active = models.BooleanField(default=True, verbose_name="активна")
     interval = models.CharField(default='once', max_length=50, choices=intervals, verbose_name="интервал рассылки")
+    status = models.CharField(max_length=15, choices=status_variants, default='created', verbose_name='Статус рассылки')
 
     def __str__(self):
         return f'{self.name}: ({self.start_time} - {self.end_time};интервал:{self.interval}; активность:{self.is_active})'
