@@ -42,7 +42,8 @@ class MailingParameters(models.Model):
     status = models.CharField(max_length=15, choices=status_variants, default='created', verbose_name='Статус рассылки')
 
     def __str__(self):
-        return f'{self.name}: ({self.start_time} - {self.end_time};интервал:{self.interval}; активность:{self.is_active})'
+        return (f'{self.name}: ({self.start_time} - {self.end_time};интервал:{self.interval}; активность:{self.is_active};'
+                f' статус:{self.status})')
 
     class Meta:
         verbose_name = 'настройка рассылкм'
@@ -61,7 +62,6 @@ class Logs(models.Model):
     last_time_sending = models.DateTimeField(auto_now=True, verbose_name='время последней рассылки', **NULLABLE)
     status = models.CharField(max_length=50, verbose_name='статус попытки', **NULLABLE)
     response = models.CharField(max_length=200, verbose_name="ответ почтового сервера", **NULLABLE)
-
 
     class Meta:
         verbose_name = 'лог'
