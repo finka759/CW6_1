@@ -27,22 +27,22 @@ class MailingParameters(models.Model):
     )
     status_variants = (
         ('created', 'создана'),
-        ('executing', 'запущена'),
+        ('is_active', 'запущена'),
         ('finished', 'закончена успешно'),
-        ('error', 'законечена с ошибками')
+        ('finished_date', 'закончена по сроку'),
+        ('finished_error', 'законечена с ошибками')
     )
     name = models.CharField(verbose_name="название рассылки", max_length=50, default='mailing_no_name')
     client = models.ManyToManyField(Client, verbose_name='получатель')
     mail = models.ForeignKey(Message, on_delete=models.CASCADE)
     start_time = models.DateTimeField(default=timezone.now, verbose_name='начало рассылки')
     end_time = models.DateTimeField(default=timezone.now, verbose_name='конец рассылки')
-    next_date = models.DateTimeField(default=timezone.now, verbose_name='дата следующей рассылки')
-    is_active = models.BooleanField(default=True, verbose_name="активна")
+    next_date = models.DateTimeField(default=(timezone.now() + timezone.timedelta(days=1)), verbose_name='дата следующей рассылки')
     interval = models.CharField(default='once', max_length=50, choices=intervals, verbose_name="интервал рассылки")
-    status = models.CharField(max_length=15, choices=status_variants, default='created', verbose_name='Статус рассылки')
+    status = models.CharField(max_length=50, choices=status_variants, default='created', verbose_name='Статус рассылки')
 
     def __str__(self):
-        return (f'{self.name}: ({self.start_time} - {self.end_time};интервал:{self.interval}; активность:{self.is_active};'
+        return (f'{self.name}: ({self.start_time} - {self.end_time};интервал:{self.interval};'
                 f' статус:{self.status})')
 
     class Meta:

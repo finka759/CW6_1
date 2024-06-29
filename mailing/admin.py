@@ -10,6 +10,6 @@ class MessageAdmin(admin.ModelAdmin):
 
 @admin.register(MailingParameters)
 class MailingParametersAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'mail', 'start_time', 'end_time', 'next_date', 'is_active', 'interval')
-    search_fields = ('client', 'is_active')
-    list_filter = ('is_active', 'client')
+    list_display = ('id', 'name', 'mail', 'start_time', 'end_time', 'next_date', 'interval', 'status')
+    search_fields = ('client', 'status')
+    list_filter = ('client', 'status')

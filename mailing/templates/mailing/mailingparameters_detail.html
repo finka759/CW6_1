@@ -14,11 +14,6 @@
                 <li>Начало: {{ object.start_time }}</li>
                 <li>Окончание: {{ object.end_time }}</li>
                 <li>Интервал: {{ object.interval }}</li>
-                {% if   object.is_active %}
-                <li>Рассылка активна</li>
-                {% else %}
-                <li>Рассылка не активна</li>
-                {% endif %}
                 <li>Следующая расылка: {{ object.next_date }}</li>
                 <li>Текст письма: {{ object.mail.theme }}</li>
                 <li>Содержимое письма: {{ object.mail.content }}</li>
