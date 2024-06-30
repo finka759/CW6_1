@@ -20,7 +20,6 @@ class Message(models.Model):
 
 class MailingParameters(models.Model):
     intervals = (
-        ('once', 'разово'),
         ('per_day', 'раз в день'),
         ('per_week', 'раз в неделю'),
         ('per_month', 'раз в месяц')
@@ -69,4 +68,6 @@ class Logs(models.Model):
 
     def __str__(self):
         return f'''Отправлено: {self.last_time_sending},
-               f'Статус: {self.status}'''
+                  'Статус: {self.status} ,
+                  'Response: {self.response},
+                  'Mailing_parameters: {self.mailing_parameters}'''

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
-from mailing.models import MailingParameters, Message
+from mailing.models import MailingParameters, Message, Logs
 
 
 # def index(request):
@@ -52,3 +52,7 @@ class MessageUpdateView(UpdateView):
 class MessageDeleteView(DeleteView):
     model = Message
     success_url = reverse_lazy('mailing:message_list')
+
+
+class LogsListView(ListView):
+    model = Logs
