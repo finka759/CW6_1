@@ -8,16 +8,11 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.utils import timezone
 
-from mailing.models import MailingParameters, Message, Logs
-
-
-def hello():
-    now = datetime.now()
-    current_time = now.strftime("%H:%M:%S")
-    print("Current Time =", current_time)
+from mailing.models import MailingParameters, Logs
 
 
 def start():
+    print('я выполнил старт')
     scheduler = BackgroundScheduler()
     scheduler.add_job(send_mailing, 'interval', seconds=60)
     scheduler.start()
@@ -46,13 +41,13 @@ def send_mailing():
         server_response = ''
         status = False
         try:
-            server_response = send_mail(
-                subject=mailing.mail.theme,
-                message=mailing.mail.content,
-                from_email=settings.EMAIL_HOST_USER,
-                recipient_list=rl,
-                fail_silently=False
-            )
+            # server_response = send_mail(
+            #     subject=mailing.mail.theme,
+            #     message=mailing.mail.content,
+            #     from_email=settings.EMAIL_HOST_USER,
+            #     recipient_list=rl,
+            #     fail_silently=False
+            # )
             print('server_response')
             print(server_response)
             server_response = str(server_response)
