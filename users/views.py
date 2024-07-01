@@ -3,7 +3,7 @@ import secrets
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, UpdateView
 
 from config.settings import EMAIL_HOST_USER
 from users.forms import UserRegisterForm
@@ -41,3 +41,9 @@ def email_verification(request, token):
 
 class UserListView(ListView):
     model = User
+
+
+class UserUpdateView(UpdateView):
+    model = User
+    fields = ['is_active', ]
+    success_url = reverse_lazy('users:list')
