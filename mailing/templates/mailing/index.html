@@ -1,0 +1,59 @@
+{% extends 'mailing/base.html' %}
+
+{% block content %}
+
+<div class="mb-3">
+
+
+     <table class="table text-center">
+                        <tr>
+                            <th><h4>Количество рассылок</h4></th>
+                            <th><h4>Количество активных рассылок</h4></th>
+                            <th><h4>Количество уникальных клиентов</h4></th>
+                        </tr>
+                        <body>
+                        <tr>
+                            <td><h4>{{ count_mailing_items }}</h4></td>
+                            <td><h4>{{ count_active_mailing_items }}</h4></td>
+                            <td><h4>{{ count_unic_clients }}</h4></td>
+                        </tr>
+                        </body>
+                    </table>
+
+</div>
+<div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+
+
+    {% for object in random_blogs %}
+
+    <div class="col">
+        <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3">
+                <h4 class="my-0 fw-normal">{{ object.title}}</h4>
+            </div>
+            <div class="card-body">
+
+                <ul class="list-unstyled mt-3 mb-4">
+                    <li>{{ object.image }}</li>
+                    <li>Текст: {{ object.text }}</li>
+                    <li>Опубликован: {{ object.published }}</li>
+                    <li>Количество просмотров: {{ object.count_of_view }}</li>
+                </ul>
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'blog:view' object.pk %}" type="button"
+                   class="w-100 btn btn-lg btn-outline-primary mb-3">Просмотр</a>
+            </div>
+
+        </div>
+    </div>
+
+    {% endfor%}
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+
+</div>
+{% endblock %}
+
+

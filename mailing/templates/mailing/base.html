@@ -96,15 +96,19 @@
     <footer class="pt-4 my-md-5 pt-md-5 border-top">
         <div class="row">
             <div class="col-12 col-md">
-                <small class="d-block mb-3 text-muted">&copy; 2023–2024</small>
+                <small class="d-block mb-3 text-muted">&copy; 2024</small>
             </div>
             <div class="col-6 col-md">
-                {% if perms.mailing.change_status %}
+                {% if perms.mailing.change_status and perms.users.set_active %}
                 <h5>Менеджмент</h5>
                 <ul class="list-unstyled text-small">
+
                     <li class="mb-1"><a class="link-secondary text-decoration-none" href="{% url 'users:list' %}">Пользователи</a></li>
-                    <li class="mb-1"><a class="link-secondary text-decoration-none" href="#">Рассылки всех
+
+                    <li class="mb-1"><a class="link-secondary text-decoration-none" href="{% url 'mailing:manager_list' %}">Рассылки всех
                         пользовтелей</a></li>
+                    <li class="mb-1"><a class="link-secondary text-decoration-none" href="{% url 'admin:index' %}">Админка</a></li>
+
                 </ul>
                 {% endif %}
             </div>

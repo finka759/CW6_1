@@ -4,12 +4,27 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 
+from blog.models import Blog
+from client.models import Client
 from mailing.forms import MailingParametersManagerForm, MailingParametersForm
 from mailing.models import MailingParameters, Message, Logs
 
 
 class MailingParametersListView(ListView):
     model = MailingParameters
+
+    def get_queryset(self, *args, **kwargs):
+        qs = super().get_queryset(*args, **kwargs)
+
+        if self.request.user.is_authenticated:
+            qs = qs.filter(creator=self.request.user)
+
+        return qs
+
+
+class ManagerMailingParametersListView(ListView):
+    model = MailingParameters
+    template_name = 'mailing_parameters_list.html'
 
 
 class MailingParametersDetailView(DetailView):
@@ -76,3 +91,17 @@ class MessageDeleteView(LoginRequiredMixin, DeleteView):
 
 class LogsListView(ListView):
     model = Logs
+
+
+def index_data(request):
+    count_mailing_items = MailingParameters.objects.count()
+    count_active_mailing_items = MailingParameters.objects.filter(status='is_active').count()
+    count_unic_clients = Client.objects.values_list('email', flat=True).count()
+    random_blogs = Blog.objects.order_by('?')[:3]
+    context = {'count_mailing_items': count_mailing_items,
+               'count_active_mailing_items': count_active_mailing_items,
+               'count_unic_clients': count_unic_clients,
+               'random_blogs': random_blogs,
+               }
+
+    return render(request, 'mailing/index.html', context)

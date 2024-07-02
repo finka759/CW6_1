@@ -90,7 +90,7 @@ class MailingParameters(models.Model):
 
     def __str__(self):
         return (f'{self.name}: ({self.start_time} - {self.end_time};интервал:{self.interval};'
-                f' статус:{self.status})')
+                f' статус:{self.status}), creator:{self.creator}')
 
     class Meta:
         verbose_name = 'настройка рассылки'

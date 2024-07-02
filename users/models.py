@@ -21,5 +21,6 @@ class User(AbstractUser):
             ('set_active', 'Activate/deactivate user'),
         ]
 
+
     def __str__(self):
         return f"{self.email}"
