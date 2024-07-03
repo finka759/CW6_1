@@ -5,9 +5,12 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime
 
 from django.conf import settings
+from django.core.cache import cache
 from django.core.mail import send_mail
 from django.utils import timezone
 
+from blog.models import Blog
+from config.settings import CACHE_ENABLED
 from mailing.models import MailingParameters, Logs
 
 
@@ -79,3 +82,17 @@ def send_mailing():
                 mailing.next_date = next_date_calculated
 
             mailing.save()
+
+
+def get_blog_from_cache():
+    """ Получает статьи из кеша, если кеш пуст получает из БД и записывает в кеш"""
+    if not CACHE_ENABLED:
+        return Blog.objects.order_by('?')[:3]
+
+    key = 'blog_list'  # Создаем ключ для хранения
+    blog_list = cache.get(key)  # Пытаемся получить данные
+    if blog_list is None:
+        # Если данные не были получены из кеша, то выбираем из БД и записываем в кеш
+        blog_list = Blog.objects.order_by('?')[:3]
+        cache.set(key, blog_list)
+    return blog_list

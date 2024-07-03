@@ -60,7 +60,7 @@
                 </svg>
                 <span class="fs-4">Менеджер рассылок</span>
             </a>
-
+            {% if user.is_authenticated %}
             <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
                 <a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'mailing:list' %}">Рассылки</a>
                 <a class="me-3 py-2 text-dark text-decoration-none"
@@ -68,7 +68,14 @@
                 <a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'client:list' %}">Клиенты</a>
                 <a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'mailing:logs_list' %}">Логи</a>
             </nav>
+            <div class="text-success">
+                {{ user.get_username }}
+            </div>
+            {% endif %}
+
+
             <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+
                 {% if user.is_authenticated %}
                 <a class="p-2 btn btn-outline-primary" href="{% url 'users:logout' %}">Выход</a>
 
@@ -78,6 +85,7 @@
                 {% endif %}
 
             </nav>
+
         </div>
 
         <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
@@ -103,11 +111,14 @@
                 <h5>Менеджмент</h5>
                 <ul class="list-unstyled text-small">
 
-                    <li class="mb-1"><a class="link-secondary text-decoration-none" href="{% url 'users:list' %}">Пользователи</a></li>
+                    <li class="mb-1"><a class="link-secondary text-decoration-none" href="{% url 'users:list' %}">Пользователи</a>
+                    </li>
 
-                    <li class="mb-1"><a class="link-secondary text-decoration-none" href="{% url 'mailing:manager_list' %}">Рассылки всех
+                    <li class="mb-1"><a class="link-secondary text-decoration-none"
+                                        href="{% url 'mailing:manager_list' %}">Рассылки всех
                         пользовтелей</a></li>
-                    <li class="mb-1"><a class="link-secondary text-decoration-none" href="{% url 'admin:index' %}">Админка</a></li>
+                    <li class="mb-1"><a class="link-secondary text-decoration-none" href="{% url 'admin:index' %}">Админка</a>
+                    </li>
 
                 </ul>
                 {% endif %}

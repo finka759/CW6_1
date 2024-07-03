@@ -8,26 +8,24 @@ from blog.models import Blog
 from client.models import Client
 from mailing.forms import MailingParametersManagerForm, MailingParametersForm
 from mailing.models import MailingParameters, Message, Logs
+from mailing.services import get_blog_from_cache
 
 
-class MailingParametersListView(ListView):
+class MailingParametersListView(LoginRequiredMixin, ListView):
     model = MailingParameters
 
     def get_queryset(self, *args, **kwargs):
         qs = super().get_queryset(*args, **kwargs)
-
-        if self.request.user.is_authenticated:
-            qs = qs.filter(creator=self.request.user)
-
+        qs = qs.filter(creator=self.request.user)
         return qs
 
 
-class ManagerMailingParametersListView(ListView):
+class ManagerMailingParametersListView(LoginRequiredMixin, ListView):
     model = MailingParameters
     template_name = 'mailing_parameters_list.html'
 
 
-class MailingParametersDetailView(DetailView):
+class MailingParametersDetailView(LoginRequiredMixin, DetailView):
     model = MailingParameters
 
 
@@ -62,7 +60,7 @@ class MailingParametersDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('mailing:list')
 
 
-class MessageListView(ListView):
+class MessageListView(LoginRequiredMixin, ListView):
     model = Message
 
 
@@ -89,7 +87,7 @@ class MessageDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('mailing:message_list')
 
 
-class LogsListView(ListView):
+class LogsListView(LoginRequiredMixin, ListView):
     model = Logs
 
 
