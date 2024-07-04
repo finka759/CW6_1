@@ -22,11 +22,7 @@
                     <li>Начало: {{ object.start_time }}</li>
                     <li>Окончание: {{ object.end_time }}</li>
                     <li>Интервал: {{ object.interval }}</li>
-                    {% if object.is_active %}
-                    <li>Рассылка активна</li>
-                    {% else %}
-                    <li>Рассылка не активна</li>
-                    {% endif %}
+                    <li>Статус расылки: {{ object.status }}</li>
                     <li>Следующая расылка: {{ object.next_date }}</li>
                 </ul>
                 <a href="{% url 'mailing:detail' object.pk %}" type="button"
