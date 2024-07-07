@@ -6,7 +6,7 @@ from django.views.generic import ListView, CreateView, DetailView, UpdateView, D
 
 from blog.models import Blog
 from client.models import Client
-from mailing.forms import MailingParametersManagerForm, MailingParametersForm
+from mailing.forms import MailingParametersManagerForm, MailingParametersForm, MailingForm
 from mailing.models import MailingParameters, Message, Logs
 from mailing.services import get_blog_from_cache
 
@@ -63,6 +63,11 @@ class MailingParametersDeleteView(LoginRequiredMixin, DeleteView):
 class MessageListView(LoginRequiredMixin, ListView):
     model = Message
 
+    def get_queryset(self, *args, **kwargs):
+        qs = super().get_queryset(*args, **kwargs)
+        qs = qs.filter(creator=self.request.user)
+        return qs
+
 
 class MessageCreateView(LoginRequiredMixin, CreateView):
     model = Message
@@ -80,6 +85,12 @@ class MessageUpdateView(LoginRequiredMixin, UpdateView):
     model = Message
     fields = ['theme', 'content', ]
     success_url = reverse_lazy('mailing:message_list')
+
+    def get_form_class(self):
+        user = self.request.user
+        if user == self.object.creator:
+            return MailingForm
+        raise PermissionDenied
 
 
 class MessageDeleteView(LoginRequiredMixin, DeleteView):

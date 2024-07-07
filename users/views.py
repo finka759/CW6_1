@@ -1,5 +1,6 @@
 import secrets
 
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect
@@ -40,7 +41,8 @@ def email_verification(request, token):
     return redirect(reverse("users:login"))
 
 
-class UserListView(ListView):
+class UserListView(PermissionRequiredMixin, ListView):
+    permission_required = 'users.view_user'
     model = User
 
 
