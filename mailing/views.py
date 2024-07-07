@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -20,7 +20,8 @@ class MailingParametersListView(LoginRequiredMixin, ListView):
         return qs
 
 
-class ManagerMailingParametersListView(LoginRequiredMixin, ListView):
+class ManagerMailingParametersListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    permission_required = 'mailing.view_mailingparameters'
     model = MailingParameters
     template_name = 'mailing_parameters_list.html'
 
