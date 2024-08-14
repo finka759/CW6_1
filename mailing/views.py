@@ -44,7 +44,6 @@ class MailingParametersCreateView(LoginRequiredMixin, CreateView):
 
 class MailingParametersUpdateView(LoginRequiredMixin, UpdateView):
     model = MailingParameters
-    fields = ['name', 'mail', 'start_time', 'end_time', 'next_date', 'interval', 'status', 'client']
     success_url = reverse_lazy('mailing:list')
 
     def get_form_class(self):
